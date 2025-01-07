@@ -23,12 +23,15 @@ const addUser = async () => {
 
 
 <template>
+  <div class="p-5">
     <form @submit.prevent="addUser">
-        <input v-model="title" placeholder="Title" required />
-        <input v-model="desc" placeholder="Desc" type="text" required />
-        <button type="submit">Добавить изучение</button>
-        <div v-if="error">Ошибка: {{ error.message }}</div>
+      <UInput v-model="title" placeholder="Title" variant="none" class="border-2 rounded" />
+      <UInput v-model="desc" placeholder="Desc" class="mt-2 outline-none border-2 rounded" variant="none" />
+      <UButton type="submit" class="mt-2" icon="bxs:plus-circle" size="sm" color="primary" variant="solid"
+        label="Add Post" :trailing="false" />
+      <div v-if="error">Ошибка: {{ error.message }}</div>
     </form>
     <NuxtLink to="/">Главная</NuxtLink>
+  </div>
 </template>
   

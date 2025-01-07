@@ -7,7 +7,6 @@ const { data: englishs, status, error } = await useFetch('/api/posts');
 
 <template>
     <div>
-        <h1>Посты</h1>
         <div v-if="status === 'pending'">Загрузка...</div>
         <div v-else-if="error">Ошибка: {{ error.message }}</div>
         <div v-else-if="englishs.length != 0">
@@ -21,5 +20,15 @@ const { data: englishs, status, error } = await useFetch('/api/posts');
             <p>Нет</p>
         </div>
     </div>
-    <NuxtLink to="/post/add">Создать пост</NuxtLink>
+    <!-- <NuxtLink to="/post/add">Создать пост</NuxtLink> -->
+
+    <UButton
+    icon="i-heroicons-pencil-square"
+    size="sm"
+    to="/post/add"
+    color="primary"
+    variant="solid"
+    label="Create Post"
+    :trailing="false"
+  />
 </template>
