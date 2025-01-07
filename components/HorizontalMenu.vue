@@ -7,8 +7,8 @@ const links = [ {
 </script>
 
 <template>
-  <div class="dark:bg-slate-600s">
-    <UHorizontalNavigation :links="links" class="border-b border-gray-200 dark:border-gray-800" />
+  <div class="text-2xl dark:bg-slate-600">
+    <UHorizontalNavigation :links="links" class="text-2xl border-b border-gray-200 dark:border-gray-800" />
   </div>
 </template>
 

@@ -25,15 +25,15 @@ const addUser = async () => {
 <template>
 
 
-<div class="h-screen inset-0 flex items-center justify-center">
+<div class="h-screen inset-0 flex items-center justify-center dark:bg-black">
 
-<div class="flex-col">
+<div class="flex-col bg-gray-500 w-full">
     
   <div class="p-5">
-    <p class="mb-2 font-medium text-slate-500">Добавить пост</p>
+    <p class="mb-2 text-2xl font-medium text-slate-500 dark:text-white">Добавить пост</p>
     <form @submit.prevent="addUser">
-      <UInput v-model="russian" placeholder="На русском" variant="none" class="border-2 rounded" />
-      <UInput v-model="englishtext" placeholder="На английском" class="mt-2 outline-none border-2 rounded" variant="none" />
+      <UInput v-model="russian" placeholder="На русском" variant="none" class="border-2 rounded text-2xl" />
+      <UInput v-model="englishtext" placeholder="На английском" class="mt-2 outline-none border-2 rounded text-2xl" variant="none" />
       <div class="text-center mt-3">
         <UButton type="submit" class="mt-2" icon="bxs:plus-circle" size="sm" color="primary" variant="solid"
           label="Add Post" :trailing="false" />
