@@ -1,7 +1,7 @@
 <script setup>
 
-const title = ref('');
-const desc = ref('');
+const russian = ref('');
+const englishtext = ref('');
 const error = ref(null);
 
 const addUser = async () => {
@@ -9,11 +9,11 @@ const addUser = async () => {
   try {
     await $fetch('/api/posts', {
       method: 'POST',
-      body: { title: title.value, desc: desc.value },
+      body: { russian: russian.value, englishtext: englishtext.value },
     });
     
-    title.value = '';
-    desc.value = '';
+    russian.value = '';
+    englishtext.value = '';
   } catch (err) {
     error.value = err;
   }
@@ -23,15 +23,28 @@ const addUser = async () => {
 
 
 <template>
+
+
+<div class="h-screen inset-0 flex items-center justify-center">
+
+<div class="flex-col">
+    
   <div class="p-5">
+    <p class="mb-2 font-medium text-slate-500">Добавить пост</p>
     <form @submit.prevent="addUser">
-      <UInput v-model="title" placeholder="Title" variant="none" class="border-2 rounded" />
-      <UInput v-model="desc" placeholder="Desc" class="mt-2 outline-none border-2 rounded" variant="none" />
-      <UButton type="submit" class="mt-2" icon="bxs:plus-circle" size="sm" color="primary" variant="solid"
-        label="Add Post" :trailing="false" />
+      <UInput v-model="russian" placeholder="На русском" variant="none" class="border-2 rounded" />
+      <UInput v-model="englishtext" placeholder="На английском" class="mt-2 outline-none border-2 rounded" variant="none" />
+      <div class="text-center mt-3">
+        <UButton type="submit" class="mt-2" icon="bxs:plus-circle" size="sm" color="primary" variant="solid"
+          label="Add Post" :trailing="false" />
+      </div>
       <div v-if="error">Ошибка: {{ error.message }}</div>
     </form>
-    <NuxtLink to="/">Главная</NuxtLink>
   </div>
+
+</div>
+
+</div>
+
 </template>
   
