@@ -30,7 +30,7 @@ const addUser = async () => {
 <div class="flex-col bg-gray-500 w-full">
     
   <div class="p-5">
-    <p class="mb-2 text-2xl font-medium text-slate-500 dark:text-white">Добавить пост</p>
+    <p class="mb-2 text-2xl font-medium text-slate-50 dark:text-white">Добавить пост</p>
     <form @submit.prevent="addUser">
       <UInput v-model="russian" placeholder="На русском" variant="none" class="border-2 rounded text-2xl" />
       <UInput v-model="englishtext" placeholder="На английском" class="mt-2 outline-none border-2 rounded text-2xl" variant="none" />
