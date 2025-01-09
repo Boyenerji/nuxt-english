@@ -1,6 +1,6 @@
 
 
 <template>
-    <MenuAddPost />
+    <!-- <MenuAddPost /> -->
     <AddPost />
 </template>

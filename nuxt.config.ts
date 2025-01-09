@@ -10,7 +10,9 @@ export default defineNuxtConfig({
     MONGODB_URI: process.env.MONGODB_URI,
   },
 
+  // modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', '@formkit/nuxt'],
   modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', '@formkit/nuxt'],
+
   formkit: {
     configFile: './formkit.config.ts',
     // autoImport: true
