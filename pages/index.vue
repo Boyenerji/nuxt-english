@@ -65,7 +65,7 @@ const retryFetch = async () => {
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full p-4 text-center">
+    <div class="fixed bottom-10 left-0 w-full p-4 text-center">
         <input 
             type="text" 
             id="first_name" 
