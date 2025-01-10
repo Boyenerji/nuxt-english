@@ -30,6 +30,7 @@ const retryFetch = async () => {
 
 
 <template>
+
     <HorizontalMenu />
 
 
@@ -65,12 +66,12 @@ const retryFetch = async () => {
         </div>
     </div>
 
-    <div class="fixed bottom-10 left-0 w-full p-4 text-center">
+    <div class="fixed bottom-20 left-0 w-full p-4 text-center">
         <input 
             type="text" 
             id="first_name" 
-            v-model="translate"
-            class="bg-gray-50 border border-gray-300 text-gray-800 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-5 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            v-model.trim="translate"
+            class=" bg-gray-50 border border-gray-300 text-gray-800 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-5 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required 
         />
     </div>
