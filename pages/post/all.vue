@@ -1,5 +1,3 @@
-
-
 <template>
-    <AddPost />
+    <AllPosts />
 </template>

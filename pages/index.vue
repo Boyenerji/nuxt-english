@@ -1,13 +1,16 @@
 <script setup>
 import Spinner from '~/components/Spinner.vue';
 
-import 'animate.css';
+// import 'animate.css';
 
 const { data: englishs, status, error, execute } = await useFetch('/api/posts');
 
 const translate = ref('')
 const isRight = ref(false)
 const inputRef = ref(null);
+
+
+const countBDposts = ref(null)
 
 
 const isBlur = ref(true)
@@ -55,6 +58,7 @@ watch(isMatch2, async (newVal, oldVal) => {
             translate.value = '';
             setTimeout(async () => {
                 isRight.value = false;
+                await countBD()
                 await retryFetch()
             }, 1500);
         } catch (error) {
@@ -66,17 +70,23 @@ watch(isMatch2, async (newVal, oldVal) => {
 
 
 
-// const isMatch = computed(() => 
-// translate.value.toLowerCase() === englishs.value[0].englishtext.toLowerCase()
-// );
+const countBD = async () => {
+    await nextTick();
+    const { data, status, error } = await useFetch('/api/postscount');
+    if (error.value) {
+        console.error('Ошибка при получении данных:', error.value);
+        return;
+    }
+    countBDposts.value = data.value 
+}
 
 
 const retryFetch = async () => {
   try {
-    await execute(); // Перезапускаем запрос
-    await nextTick(); // Ждем завершения обновления DOM
+    await execute(); 
+    await nextTick();
     if (inputRef.value) {
-        inputRef.value.focus(); // Устанавливаем фокус на input после повторного запроса
+        inputRef.value.focus();
     }
     console.log('Запрос выполнен повторно');
   } catch (err) {
@@ -86,9 +96,8 @@ const retryFetch = async () => {
 
 
 onMounted(() => {
-    if (inputRef.value) {
-        inputRef.value.focus();
-    }
+    countBD()
+    if (inputRef.value) inputRef.value.focus();
 });
 
 
@@ -112,16 +121,25 @@ onMounted(() => {
             <div v-else-if="error">Ошибка: {{ error.message }}</div>
             <div v-else-if="englishs.length != 0">
 
+                <div class="flex justify-center items-center">
+                    <div class="mr-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 10c3.976 0 8-1.374 8-4s-4.024-4-8-4s-8 1.374-8 4s4.024 4 8 4"></path><path fill="currentColor" d="M4 10c0 2.626 4.024 4 8 4s8-1.374 8-4V8c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path><path fill="currentColor" d="M4 14c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path><path fill="currentColor" d="M4 18c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path></svg>
+                    </div>
+                    <p v-if="countBDposts" >{{countBDposts}}</p>
+            
+                </div>
+
+
                 <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn">
                     <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian }}</p>
-                    <p @click="blurChoice" class="text-3xl cursor-pointer mt-2 dark: text-gray-500"
+                    <p @click="blurChoice" class=" p-3 text-3xl cursor-pointer mt-2 dark: text-gray-500"
                         :class="{ 'blur-sm': isBlur }">
                         {{ english.englishtext }}
                     </p>
                 </div>
             </div>
             <div v-else>
-                <p class="text-4xl font-bold text-black">Все фразы повторили</p>
+                <p class="text-4xl font-bold text-black">Все фразы повторили.</p>
             </div>
         </div>
     </div>
