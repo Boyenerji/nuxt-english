@@ -8,9 +8,9 @@ onMounted(() => {
     initFlowbite();
 });
 
-onUpdated(() => {
-  initFlowbite(); 
-});
+// onUpdated(() => {
+//   initFlowbite(); 
+// });
 
 
 

@@ -20,7 +20,17 @@ const blurChoice = () => {
 
 const isMatch2 = computed(() => {
     if (englishs.value && englishs.value.length > 0) {
-        return translate.value.toLowerCase() === englishs.value[0].englishtext.toLowerCase();
+        const userInput = translate.value
+            .toLowerCase()
+            .replace(/’/g, "'") // Заменяем типографские кавычки
+            .trim();
+
+        const correctText = englishs.value[0].englishtext
+            .toLowerCase()
+            .replace(/’/g, "'") 
+            .trim();
+
+        return userInput === correctText;
     }
     return false;
 });
@@ -58,6 +68,7 @@ watch(isMatch2, async (newVal, oldVal) => {
             translate.value = '';
             setTimeout(async () => {
                 isRight.value = false;
+                if (!isBlur.value) isBlur.value = true;
                 await countBD()
                 await retryFetch()
             }, 1500);
@@ -72,12 +83,12 @@ watch(isMatch2, async (newVal, oldVal) => {
 
 const countBD = async () => {
     await nextTick();
-    const { data, status, error } = await useFetch('/api/postscount');
-    if (error.value) {
-        console.error('Ошибка при получении данных:', error.value);
+    const data = await $fetch('/api/postsdiff');
+    if (!data) {
+        console.error('Ошибка при получении данных:', data);
         return;
     }
-    countBDposts.value = data.value 
+    countBDposts.value = data 
 }
 
 
@@ -125,7 +136,7 @@ onMounted(() => {
                     <div class="mr-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 10c3.976 0 8-1.374 8-4s-4.024-4-8-4s-8 1.374-8 4s4.024 4 8 4"></path><path fill="currentColor" d="M4 10c0 2.626 4.024 4 8 4s8-1.374 8-4V8c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path><path fill="currentColor" d="M4 14c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path><path fill="currentColor" d="M4 18c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path></svg>
                     </div>
-                    <p v-if="countBDposts" >{{countBDposts}}</p>
+                    <p v-if="countBDposts" >{{ countBDposts }}</p>
             
                 </div>
 
@@ -133,7 +144,7 @@ onMounted(() => {
                 <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn">
                     <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian }}</p>
                     <p @click="blurChoice" class=" p-3 text-3xl cursor-pointer mt-2 dark: text-gray-500"
-                        :class="{ 'blur-sm': isBlur }">
+                        :class="{ 'blur-lg': isBlur }">
                         {{ english.englishtext }}
                     </p>
                 </div>
@@ -145,7 +156,7 @@ onMounted(() => {
     </div>
 
     <div v-if="isRight" class="fixed bottom-20 left-0 w-full p-4 text-center">
-        <div class="p-4 mb-4 text-sm text-green-700 rounded-lg bg-green-200 dark:bg-gray-800 dark:text-green-400"
+        <div class="p-4 mb-4 text-green-700 rounded-lg bg-green-200 dark:bg-gray-800 dark:text-green-400"
             role="alert">
             <span class="font-medium">Правильно</span>
         </div>
