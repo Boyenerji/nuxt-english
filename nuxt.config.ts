@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   // css: ['~/assets/css/main.css'],
-  css: ['~/assets/css/main.css', '@formkit/themes/genesis'],
+  css: ['~/assets/css/main.css', '@formkit/themes/genesis', 'animate.css/animate.min.css'],
   
 
   runtimeConfig: {
