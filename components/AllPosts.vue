@@ -11,18 +11,7 @@ interface Post {
 
 const { data, status, error } = await useFetch<Post[]>('/api/postsall');
 
-const countBDposts = ref(0)
-
-// const countBD2 = async () => {
-//     const { data: counts, status, error} = await useFetch('/api/postscount');
-
-//     if (error.value) {
-//         console.error('Ошибка при получении данных:', error.value);
-//         return;
-//     }
-//     console.log(counts.value)
-//     countBDposts.value = counts.value ? Number(counts.value) : 0
-// }
+// const countBDposts = ref(0)
 
 </script>
 
