@@ -1,7 +1,7 @@
 <script setup>
+import PostsDiff from '~/components/PostsDiff.vue';
 import Spinner from '~/components/Spinner.vue';
 
-// import 'animate.css';
 
 const { data: englishs, status, error, execute } = await useFetch('/api/posts');
 
@@ -10,13 +10,31 @@ const isRight = ref(false)
 const inputRef = ref(null);
 
 
-const countBDposts = ref(null)
+const showText = ref(false)
+const wordsOrStats = computed(() => {
+    if (!showText.value) {
+        let englishsText2 = ''
+        for (let i = 0; i < englishs.value[0].englishtext.length; i++) {
+            englishsText2 += '*'
+        }
+        return englishsText2
+    } else {
+        return englishs.value[0].englishtext
+    }
+
+})
 
 
-const isBlur = ref(true)
-const blurChoice = () => {
-    isBlur.value = !isBlur.value
+const toggleText = () => {
+  showText.value = !showText.value
 }
+
+
+
+// const isBlur = ref(true)
+// const blurChoice = () => {
+//     isBlur.value = !isBlur.value
+// }
 
 const isMatch2 = computed(() => {
     if (englishs.value && englishs.value.length > 0) {
@@ -68,8 +86,6 @@ watch(isMatch2, async (newVal, oldVal) => {
             translate.value = '';
             setTimeout(async () => {
                 isRight.value = false;
-                if (!isBlur.value) isBlur.value = true;
-                await countBD()
                 await retryFetch()
             }, 1500);
         } catch (error) {
@@ -79,23 +95,11 @@ watch(isMatch2, async (newVal, oldVal) => {
 });
 
 
-
-
-const countBD = async () => {
-    await nextTick();
-    const data = await $fetch('/api/postsdiff');
-    if (!data) {
-        console.error('Ошибка при получении данных:', data);
-        return;
-    }
-    countBDposts.value = data 
-}
-
-
 const retryFetch = async () => {
   try {
     await execute(); 
     await nextTick();
+    showText.value = false
     if (inputRef.value) {
         inputRef.value.focus();
     }
@@ -107,16 +111,15 @@ const retryFetch = async () => {
 
 
 onMounted(() => {
-    countBD()
     if (inputRef.value) inputRef.value.focus();
 });
 
 
-
-
-
-
 </script>
+
+
+
+
 
 
 <template>
@@ -132,20 +135,14 @@ onMounted(() => {
             <div v-else-if="error">Ошибка: {{ error.message }}</div>
             <div v-else-if="englishs.length != 0">
 
-                <div class="flex justify-center items-center">
-                    <div class="mr-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 10c3.976 0 8-1.374 8-4s-4.024-4-8-4s-8 1.374-8 4s4.024 4 8 4"></path><path fill="currentColor" d="M4 10c0 2.626 4.024 4 8 4s8-1.374 8-4V8c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path><path fill="currentColor" d="M4 14c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path><path fill="currentColor" d="M4 18c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path></svg>
-                    </div>
-                    <p v-if="countBDposts" class="text-xl font-semibold">{{ countBDposts }}</p>
-            
-                </div>
+                <PostsDiff />
 
-
-                <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn">
+                <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1">
                     <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian }}</p>
-                    <p @click="blurChoice" class="p-3 text-3xl cursor-pointer dark: text-gray-500"
-                        :class="{ 'blur-lg': isBlur }">
-                        {{ english.englishtext }}
+                    <p 
+                        @click="toggleText" 
+                        class="p-3 text-3xl cursor-pointer dark: text-gray-500 shadow-sm">
+                        {{ wordsOrStats }}
                     </p>
                 </div>
             </div>
@@ -164,7 +161,7 @@ onMounted(() => {
 
     <div v-else-if="englishs.length != 0" class="fixed bottom-24 left-0 w-full p-4 text-center">
         <input type="text" id="first_name" v-model.trim="translate" ref="inputRef"
-            class=" bg-gray-50 border border-gray-300 text-gray-800 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
+            class=" bg-gray-50 border border-gray-300 text-gray-800 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
             required />
     </div>
 
