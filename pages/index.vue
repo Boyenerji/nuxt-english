@@ -3,7 +3,9 @@ import PostsDiff from '~/components/PostsDiff.vue';
 import Spinner from '~/components/Spinner.vue';
 
 
-const { data: englishs, status, error, execute } = await useFetch('/api/posts');
+const { data: englishs, status:postsStatus, error:postsError, execute:executePosts } = await useFetch('/api/posts');
+const { data: diff, status:diffStatus, error:diffError, execute:executeDiff} = await useFetch('/api/postsdiff');
+
 
 const translate = ref('')
 const isRight = ref(false)
@@ -14,9 +16,7 @@ const showText = ref(false)
 const wordsOrStats = computed(() => {
     if (!showText.value) {
         let englishsText2 = ''
-        for (let i = 0; i < englishs.value[0].englishtext.length; i++) {
-            englishsText2 += '*'
-        }
+        englishsText2 = englishs.value[0].englishtext.replace(/[a-zA-Z]/g, '*');
         return englishsText2
     } else {
         return englishs.value[0].englishtext
@@ -97,7 +97,8 @@ watch(isMatch2, async (newVal, oldVal) => {
 
 const retryFetch = async () => {
   try {
-    await execute(); 
+    await executePosts(); 
+    await executeDiff();
     await nextTick();
     showText.value = false
     if (inputRef.value) {
@@ -115,6 +116,10 @@ onMounted(() => {
 });
 
 
+
+
+
+
 </script>
 
 
@@ -124,24 +129,27 @@ onMounted(() => {
 
 <template>
 
+
+
     <HorizontalMenu />
 
-
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center">
+       
         <div>
-            <div v-if="status === 'pending'" class="flex justify-center">
+            <div v-if="postsStatus === 'pending' || diffStatus === 'pending'" class="flex justify-center">
                 <Spinner />
             </div>
-            <div v-else-if="error">Ошибка: {{ error.message }}</div>
+            <div v-else-if="postsError">Ошибка: {{ postsError.message }}</div>
             <div v-else-if="englishs.length != 0">
 
-                <PostsDiff />
+                <!-- <PostsDiff /> -->
+                <PostsDiff :diff="diff" />
 
                 <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1">
                     <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian }}</p>
                     <p 
                         @click="toggleText" 
-                        class="p-3 text-3xl cursor-pointer dark: text-gray-500 shadow-sm">
+                        class="p-3 text-2xl cursor-pointer dark: text-gray-500">
                         {{ wordsOrStats }}
                     </p>
                 </div>
