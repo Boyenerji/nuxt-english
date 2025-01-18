@@ -12,7 +12,7 @@ const props = defineProps({
 
     <div>
 
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center dark:text-white">
             <div class="mr-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M12 10c3.976 0 8-1.374 8-4s-4.024-4-8-4s-8 1.374-8 4s4.024 4 8 4">
@@ -25,7 +25,7 @@ const props = defineProps({
                         d="M4 18c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4z"></path>
                 </svg>
             </div>
-            <p class="text-xl font-semibold">{{ diff }}</p>
+            <p class="text-xl font-semibold dark:text-white">{{ diff }}</p>
         </div>
 
 
