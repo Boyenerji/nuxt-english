@@ -1,16 +1,20 @@
-<script setup lang="ts">
+<script setup>
 import { initFlowbite } from 'flowbite';
 import { onMounted } from 'vue'
-
-
 
 onMounted(() => {
     initFlowbite();
 });
 
-// onUpdated(() => {
-//   initFlowbite(); 
-// });
+
+defineProps({
+  links: {
+    type: Array,
+    required: true,
+  },
+});
+
+
 
 
 
@@ -20,11 +24,10 @@ onMounted(() => {
   
   <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" /> -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#888888" d="M15 9.783V4h1V2H8v2h1v5.783l-4.268 9.389a1.99 1.99 0 0 0 .14 1.911A1.99 1.99 0 0 0 6.553 22h10.895a1.99 1.99 0 0 0 1.681-.917c.37-.574.423-1.289.14-1.911zm-4.09.631c.06-.13.09-.271.09-.414V4h2v6c0 .143.03.284.09.414L15.177 15H8.825z"/></svg>
+    <nuxt-link to="/" class="flex items-center space-x-2 rtl:space-x-reverse">
+        <img class="h-8" src="/img/english.png" alt="logo">
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">English</span>
-    </a>
+    </nuxt-link>
     <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -33,7 +36,12 @@ onMounted(() => {
     </button>
     <div class="hidden w-full md:block md:w-auto" id="navbar-default">
       <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <li>
+        <li v-for="link in links" :key="link.label">
+            <NuxtLink :to="link.href" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              {{ link.label }}
+            </NuxtLink>
+        </li>
+        <!-- <li>
           <a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
         </li>
         <li>
@@ -41,7 +49,7 @@ onMounted(() => {
         </li>
         <li>
           <NuxtLink to="/post/all" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">All posts</NuxtLink>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

@@ -31,12 +31,6 @@ const toggleText = () => {
 }
 
 
-
-// const isBlur = ref(true)
-// const blurChoice = () => {
-//     isBlur.value = !isBlur.value
-// }
-
 const isMatch2 = computed(() => {
     if (englishs.value && englishs.value.length > 0) {
         const userInput = translate.value
@@ -119,7 +113,10 @@ onMounted(() => {
 
 
 
-
+const links = [
+  { label: 'Add post', href: '/post/add' },
+  { label: 'All Posts', href: '/post/all' },
+];
 
 
 </script>
@@ -133,7 +130,7 @@ onMounted(() => {
 
 
 
-    <HorizontalMenu />
+    <HorizontalMenu :links="links" />
 
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center">
 
@@ -147,9 +144,12 @@ onMounted(() => {
                 <!-- <PostsDiff /> -->
 
                 <div v-if="isRight">
-                    <div class="bg-green-500 p-3 flex justify-center items-center">
+                    <div class="bg-green-500 p-3 flex justify-center items-center animate__animated animate__fadeIn">
                         <div class="text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#FFFFFF" d="M7 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm4 10.414l-2.707-2.707l1.414-1.414L11 12.586l3.793-3.793l1.414 1.414z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                                <path fill="#FFFFFF"
+                                    d="M7 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm4 10.414l-2.707-2.707l1.414-1.414L11 12.586l3.793-3.793l1.414 1.414z" />
+                            </svg>
                         </div>
                         <p class="text-white font-semibold text-xl">Правильно</p>
                     </div>
@@ -161,34 +161,21 @@ onMounted(() => {
                     <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1">
                         <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian
                             }}</p>
-                        <p @click="toggleText" class="p-3 text-2xl cursor-pointer dark: text-gray-500">
+                        <p @click="toggleText" class="pt-2 pr-2 pl-2 text-3xl cursor-pointer dark: text-gray-500">
                             {{ wordsOrStats }}
                         </p>
+                       
+                            <span
+                                @click="toggleText"
+                                class="inline-flex items-center justify-center p-2 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
+                                {{ showText ? 'Скрыть' : 'Показать' }}
+                                <span class="sr-only">Icon description</span>
+                            </span>
+                        
+
                     </div>
                 </div>
 
-
-                <!-- <PostsDiff :diff="diff" />
-
-                <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1">
-                    <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian
-                        }}</p>
-                    <p @click="toggleText" class="p-3 text-2xl cursor-pointer dark: text-gray-500">
-                        {{ wordsOrStats }}
-                    </p>
-                </div> -->
-
-
-                <!-- <PostsDiff :diff="diff" />
-
-                <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1">
-                    <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian }}</p>
-                    <p 
-                        @click="toggleText" 
-                        class="p-3 text-2xl cursor-pointer dark: text-gray-500">
-                        {{ wordsOrStats }}
-                    </p>
-                </div> -->
             </div>
             <div v-else>
                 <p class="text-4xl font-bold text-black dark:text-white">Все фразы повторили.</p>
@@ -196,22 +183,15 @@ onMounted(() => {
         </div>
     </div>
 
-    <!-- <div v-if="isRight">
-        <BannerBottom />
-    </div> -->
-    <!-- <BannerBottom /> -->
-
-    <!-- <div v-if="isRight" class="fixed bottom-20 left-0 w-full p-4 text-center">
-        <div class="p-4 mb-4 text-green-700 rounded-lg bg-green-200 dark:bg-gray-800 dark:text-green-400"
-            role="alert">
-            <span class="font-medium">Правильно</span>
-        </div>
-    </div> -->
-
     <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-24 left-0 w-full p-4 text-center">
-        <input type="text" id="first_name" v-model.trim="translate" ref="inputRef"
-            class=" bg-gray-50 border border-gray-300 text-gray-800 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
-            required />
+        <textarea
+            type="text" 
+            id="first_name" 
+            v-model.trim="translate" 
+            ref="inputRef"
+            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
+            required>
+        </textarea> 
     </div>
 
 

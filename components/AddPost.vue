@@ -22,13 +22,26 @@ const addUser = async () => {
     isLoading.value = false;
   }
 };
+
+
+const links = [
+  { label: 'Home', href: '/' },
+  { label: 'All Posts', href: '/post/all' },
+];
+
+
+
 </script>
 
 
 
 <template>
 
-<nuxt-link to="/">Main</nuxt-link>
+
+
+<HorizontalMenu :links="links"/>
+
+<!-- <nuxt-link to="/">Main</nuxt-link> -->
 
 
 <div class="h-screen inset-0 flex items-center justify-center dark:bg-black">
@@ -38,22 +51,25 @@ const addUser = async () => {
   <div class="p-5">
     <p class="mb-2 text-2xl font-medium text-gray-500 dark:text-white">Добавить пост</p>
     <form @submit.prevent="addUser">
-      <input 
+
+      <textarea 
           type="text" 
           id="first_name" 
           v-model="englishtext"
           placeholder="English"
           class="placeholder-gray-500 placeholder-opacity-20 bg-gray-50 border border-gray-300 text-gray-500 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-3 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required 
-      />
-      <input 
+          required>
+      </textarea>
+
+      <textarea 
           type="text" 
           id="first_name" 
           v-model="russian"
           placeholder="На русском"
           class="placeholder-gray-500 placeholder-opacity-20 bg-gray-50 mt-2 border border-gray-300 text-gray-500 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-3 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required 
-      />
+          required>
+      </textarea>
+
       
       <div class="text-center mt-3">
         <button 
