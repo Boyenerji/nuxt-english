@@ -37,19 +37,14 @@ const links = [
 
 <template>
 
-
-
 <HorizontalMenu :links="links"/>
-
-<!-- <nuxt-link to="/">Main</nuxt-link> -->
-
 
 <div class="h-screen inset-0 flex items-center justify-center dark:bg-black">
 
-<div class="flex-col  w-full">
+<div class="flex-col w-full">
     
-  <div class="p-5">
-    <p class="mb-2 text-2xl font-medium text-gray-500 dark:text-white">Добавить пост</p>
+  <div v-if="!isLoading" class="p-5">
+    <p class="text-center mb-7 text-4xl font-medium text-gray-500 dark:text-white">Добавить пост</p>
     <form @submit.prevent="addUser">
 
       <textarea 
@@ -81,6 +76,9 @@ const links = [
       </div>
       <div v-if="error">Ошибка: {{ error.message }}</div>
     </form>
+  </div>
+  <div v-else class="flex justify-center">
+    <Spinner />
   </div>
 
 </div>

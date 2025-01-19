@@ -183,7 +183,7 @@ const links = [
         </div>
     </div>
 
-    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-24 left-0 w-full p-4 text-center">
+    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-20 left-0 w-full p-4 text-center">
         <textarea
             type="text" 
             id="first_name" 
