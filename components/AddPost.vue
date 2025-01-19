@@ -44,26 +44,30 @@ const links = [
 <div class="flex-col w-full">
     
   <div v-if="!isLoading" class="p-5">
-    <p class="text-center mb-7 text-4xl font-medium text-gray-500 dark:text-white">Добавить пост</p>
-    <form @submit.prevent="addUser">
+    <p class="text-center mb-7 text-4xl font-bold text-gray-500 dark:text-white">Добавить пост</p>
+    <form @submit.prevent="addUser" class="text-center flex-col">
 
+      <div>
       <textarea 
           type="text" 
           id="first_name" 
           v-model="englishtext"
           placeholder="English"
-          class="placeholder-gray-500 placeholder-opacity-20 bg-gray-50 border border-gray-300 text-gray-500 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-3 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 lg:mx-auto dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required>
       </textarea>
+    </div>
 
+    <div>
       <textarea 
           type="text" 
           id="first_name" 
           v-model="russian"
           placeholder="На русском"
-          class="placeholder-gray-500 placeholder-opacity-20 bg-gray-50 mt-2 border border-gray-300 text-gray-500 text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-3 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-2 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required>
       </textarea>
+    </div>
 
       
       <div class="text-center mt-3">

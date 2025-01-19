@@ -156,12 +156,15 @@ const links = [
                 </div>
 
                 <div v-else>
-                    <PostsDiff :diff="diff" />
+                    <PostsDiff :diff="diff" class="mt-4" />
 
-                    <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1">
-                        <p class="text-gray-800 text-4xl font-semibold divide-y dark:text-gray-300">{{ english.russian
-                            }}</p>
-                        <p @click="toggleText" class="pt-2 pr-2 pl-2 text-3xl cursor-pointer dark: text-gray-500">
+                    <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1 ">
+                        <p 
+                            class="text-gray-800 pl-1 pr-1 text-4xl font-semibold divide-y dark:text-gray-300"
+                            :class="{ 'text-xl': english.russian.length > 30 }">
+                            {{ english.russian}}
+                        </p>
+                        <p  class="pt-2 pr-2 pl-2 text-3xl cursor-pointer dark: text-gray-500">
                             {{ wordsOrStats }}
                         </p>
                        
@@ -183,13 +186,13 @@ const links = [
         </div>
     </div>
 
-    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-20 left-0 w-full p-4 text-center">
+    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-28 left-0 w-full p-4 text-center">
         <textarea
             type="text" 
             id="first_name" 
             v-model.trim="translate" 
             ref="inputRef"
-            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-3xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
+            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
             required>
         </textarea> 
     </div>
