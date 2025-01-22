@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Post from '~/server/models/Posts';
+// import Post from '~/server/models/Posts';
 
 const PostSchema = new mongoose.Schema({
   postId: {
@@ -10,7 +10,7 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 10800 
+    expires: 14400 
   },
 });
 

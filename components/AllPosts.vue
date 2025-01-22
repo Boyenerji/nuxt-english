@@ -60,7 +60,6 @@ onMounted(() => {
         <div 
           v-for="post in posts" :key="post._id" 
           class="animate__animated animate__fadeIn shadow-3xl p-2 rounded-md m-2"
-
         >
             <p class="text-gray-800 text-3xl font-semibold divide-y dark:text-gray-300">{{ post.russian }}</p>
             <p class="p-1 text-2xl mt-2 dark: text-gray-500">

@@ -31,6 +31,8 @@ const toggleText = () => {
 }
 
 
+
+
 const isMatch2 = computed(() => {
     if (englishs.value && englishs.value.length > 0) {
         const userInput = translate.value
@@ -112,6 +114,15 @@ onMounted(() => {
 });
 
 
+// onBeforeMount(() => {
+//       console.log('Server-side englishs:', englishs.value);
+//     });
+
+// onMounted(() => {
+//     console.log('Client-side englishs:', englishs.value);
+// });
+
+
 
 const links = [
   { label: 'Add post', href: '/post/add' },
@@ -187,14 +198,21 @@ const links = [
     </div>
 
     <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-28 left-0 w-full p-4 text-center">
-        <textarea
-            type="text" 
-            id="first_name" 
-            v-model.trim="translate" 
+        <!-- <textarea
+            :value="translate"
+            @input="event => translate = event.target.value"
             ref="inputRef"
             class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
             required>
-        </textarea> 
+            {{ translate }}
+        </textarea> -->
+        <input 
+            type="text" 
+            v-model.trim="translate" 
+            ref="inputRef"
+            required
+            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
+        />
     </div>
 
 

@@ -26,6 +26,8 @@ export default defineEventHandler(async (event) => {
       return []; // Возвращаем пустой массив
     }
 
+    console.log(posts)
+
     return posts;
   } catch (error) {
     throw createError({
