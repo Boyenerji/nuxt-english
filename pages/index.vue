@@ -137,8 +137,8 @@ const links = [
 <template>
 
 
-
-    <HorizontalMenu :links="links" />
+    
+    <!-- <HorizontalMenu :links="links" /> -->
 
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center">
 
@@ -164,19 +164,34 @@ const links = [
                 </div>
 
                 <div v-else>
-                    <PostsDiff :diff="diff" class="mt-4" />
+                    <PostsDiff :diff="diff" class="mt-2" />
 
                     <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1 ">
-                        <p 
-                            class="text-gray-800 pl-1 pr-1 text-4xl font-semibold divide-y dark:text-gray-300"
+                        <p class="text-gray-800 pl-1 pr-1 text-4xl font-semibold divide-y dark:text-gray-300"
                             :class="{ 'text-xl': english.russian.length > 30 }">
                             {{ english.russian}}
                         </p>
-                        <p  class="pt-2 pr-2 pl-2 text-3xl cursor-pointer dark: text-gray-500">
+                        <p class="pt-2 pr-2 pl-2 text-3xl cursor-pointer dark: text-gray-500">
                             {{ wordsOrStats }}
                         </p>
-                       
-                        <span
+
+
+                        <div class="flex justify-center">
+                            <span 
+                                @click="toggleText"
+                                class="inline-flex items-center mr-3 justify-center p-1 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
+                                {{ showText ? 'Скрыть' : 'Показать' }}
+                                <span class="sr-only">Icon description</span>
+                            </span>
+
+
+                            <div v-if="english.rulestext" class="mt-2">
+                                <Popover :rules="english.rulestext" />
+                            </div>
+
+                        </div>
+
+                        <!-- <span
                             @click="toggleText"
                             class="inline-flex items-center justify-center p-2 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
                             {{ showText ? 'Скрыть' : 'Показать' }}
@@ -184,12 +199,10 @@ const links = [
                         </span>
 
 
-
-
                         <div v-if="english.rulestext" class="mt-2">
                             <Popover :rules="english.rulestext" />
-                        </div>
-                        
+                        </div> -->
+
 
                     </div>
                 </div>
@@ -201,21 +214,16 @@ const links = [
         </div>
     </div>
 
-    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-32 left-0 w-full p-4 text-center">
-        <input 
-            type="text" 
-            v-model.trim="translate" 
-            ref="inputRef"
-            required
-            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
-        />
+    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-36 left-0 w-full p-4 text-center">
+        <input type="text" v-model.trim="translate" ref="inputRef" required
+            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2" />
     </div>
 
 
-    <div v-if="englishs.length != 0 && !isRight" class="fixed bottom-12 left-0 w-full p-4 text-center">
+    <div v-if="englishs.length != 0 && !isRight" class="fixed bottom-16 left-0 w-full p-4 text-center">
         <div class="mt-5">
             <button @click="retryFetch" :disabled="isDisabled" type="button"
-                class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                class="text-white bg-purple-500 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                 {{ isDisabled ? 'Загрузка...' : 'Далее' }}
             </button>
         </div>

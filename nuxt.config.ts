@@ -18,7 +18,8 @@ export default defineNuxtConfig({
   },
 
   // modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', '@formkit/nuxt'],
-  modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', '@formkit/nuxt', '@nuxt/icon'],
+  modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', '@formkit/nuxt', '@nuxt/icon', '@nuxtjs/color-mode'],
+  
 
   formkit: {
     configFile: './formkit.config.ts',

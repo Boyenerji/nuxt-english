@@ -70,8 +70,8 @@ onUpdated(() => {
 
   <div>
     <div v-for="post in posts" :key="post._id" class="animate__animated animate__fadeIn shadow-3xl p-2 rounded-md m-2">
-      <p class="text-gray-800 text-3xl font-semibold divide-y dark:text-gray-300">{{ post.russian }}</p>
-      <p class="p-1 text-2xl mt-2 dark: text-gray-500">
+      <p class="text-gray-800 text-2xl font-semibold divide-y dark:text-gray-300">{{ post.russian }}</p>
+      <p class=" text-xl mt-1 dark: text-gray-500">
         {{ post.englishtext }}
       </p>
       <div v-if="post.rulestext">
@@ -82,7 +82,7 @@ onUpdated(() => {
             class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">Примеры</span>
         </div>
 
-        <i v-html="post.rulestext" class="p-1 text-2xl mt-2 dark: text-gray-500"></i>
+        <i v-html="post.rulestext" class="p-1 text-lg mt-2 dark: text-gray-500"></i>
       </div>
     </div>
 
