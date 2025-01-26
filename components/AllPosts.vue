@@ -25,13 +25,16 @@ const fetchPosts = async () => {
       params: { limit, skip },
     });
 
-    console.log('posts.value:', posts.value);
-    console.log('totalPosts.value:', totalPosts.value);
 
 
     posts.value.push(...data.posts);
     totalPosts.value = data.total;
     skip += limit; 
+
+    console.log('data:', data);
+    console.log('posts.value:', posts.value);
+    console.log('totalPosts.value:', totalPosts.value);
+    console.log('skip:', skip);
   } catch (error) {
     console.error('Ошибка при загрузке постов:', error);
   } finally {
@@ -65,6 +68,9 @@ onMounted(() => {
             <p class="p-1 text-2xl mt-2 dark: text-gray-500">
                 {{ post.englishtext }}
             </p>
+            <div v-if="post.rulestext">
+              <p v-html="post.rulestext" class="p-1 text-2xl mt-2 dark: text-gray-500"></p>
+            </div>
         </div>
 
 

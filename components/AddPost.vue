@@ -2,6 +2,7 @@
 
 const russian = ref('');
 const englishtext = ref('');
+const rulestext = ref('');
 const error = ref(null);
 const isLoading = ref(false);
 
@@ -11,11 +12,12 @@ const addUser = async () => {
     isLoading.value = true;
     await $fetch('/api/posts', {
       method: 'POST',
-      body: { russian: russian.value, englishtext: englishtext.value },
+      body: { russian: russian.value, englishtext: englishtext.value, rulestext: rulestext.value },
     });
     
     russian.value = '';
     englishtext.value = '';
+    rulestext.value = '';
   } catch (err) {
     error.value = err;
   } finally {
@@ -48,22 +50,42 @@ const links = [
     <form @submit.prevent="addUser" class="text-center flex-col">
 
     <div>
-      <textarea 
+
+      <div class="flex items-center text-center mx-auto lg:w-1/2">
+        <Icon name="flag:us-4x3"/>
+        <p class="ml-1 text-gray-500">На английском</p>
+      </div>
+      
+      <input 
           type="text" 
           v-model="englishtext"
-          placeholder="English"
-          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 lg:mx-auto dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required>
-      </textarea>
+          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 lg:mx-auto dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+        />
     </div>
 
     <div>
-      <textarea 
+      <div class="flex items-center mx-auto lg:w-1/2 mt-2">
+        <Icon name="flag:ru-4x3"/>
+        <p class="ml-1 text-gray-500">На русском</p>
+      </div>
+      <input
           type="text" 
           v-model="russian"
-          placeholder="На русском"
-          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-2 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required>
+          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+      />
+    </div>
+
+
+    <div>
+      <div class="flex items-center mx-auto lg:w-1/2 mt-2">
+        <Icon name="bxs:chat" class="text-gray-500"/>
+        <p class="ml-1 text-gray-500">Объяснения или пример</p>
+      </div>
+      <textarea 
+          v-model="rulestext"
+          class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </textarea>
     </div>
 
@@ -73,7 +95,7 @@ const links = [
         <button 
             type="submit"
             :disabled="!englishtext || !russian || isLoading"
-            class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full cursor-pointer  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
             {{ isLoading ? 'Сохранение...' : 'Сохранить' }}
         </button>
       </div>

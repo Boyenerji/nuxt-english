@@ -13,6 +13,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@formkit/nuxt": "^1.6.9",
     "@formkit/themes": "^1.6.9",
+    "@nuxt/icon": "^1.10.3",
     "@nuxt/ui": "^2.20.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "animate.css": "^4.1.1",
@@ -23,6 +24,8 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@iconify-json/bxs": "^1.2.2"
+    "@iconify-json/bx": "^1.2.2",
+    "@iconify-json/bxs": "^1.2.2",
+    "nuxt-icons": "^3.2.1"
   }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import Popover from '~/components/Popover.vue';
 import PostsDiff from '~/components/PostsDiff.vue';
 import Spinner from '~/components/Spinner.vue';
 
@@ -113,14 +114,10 @@ onMounted(() => {
     if (inputRef.value) inputRef.value.focus();
 });
 
+onUpdated(() => {
+  initFlowbite();
+});
 
-// onBeforeMount(() => {
-//       console.log('Server-side englishs:', englishs.value);
-//     });
-
-// onMounted(() => {
-//     console.log('Client-side englishs:', englishs.value);
-// });
 
 
 
@@ -179,12 +176,19 @@ const links = [
                             {{ wordsOrStats }}
                         </p>
                        
-                            <span
-                                @click="toggleText"
-                                class="inline-flex items-center justify-center p-2 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
-                                {{ showText ? 'Скрыть' : 'Показать' }}
-                                <span class="sr-only">Icon description</span>
-                            </span>
+                        <span
+                            @click="toggleText"
+                            class="inline-flex items-center justify-center p-2 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
+                            {{ showText ? 'Скрыть' : 'Показать' }}
+                            <span class="sr-only">Icon description</span>
+                        </span>
+
+
+
+
+                        <div v-if="english.rulestext" class="mt-2">
+                            <Popover :rules="english.rulestext" />
+                        </div>
                         
 
                     </div>
