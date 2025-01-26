@@ -46,6 +46,9 @@ const links = [
 <div class="flex-col w-full">
     
   <div v-if="!isLoading" class="p-5">
+    <p class="text-center ">
+      <Icon name="unjs:jimp-compact" class="text-center" size="70"/>
+    </p>
     <p class="text-center mb-7 text-4xl font-bold text-gray-500 dark:text-white">Добавить пост</p>
     <form @submit.prevent="addUser" class="text-center flex-col">
 
@@ -65,7 +68,7 @@ const links = [
     </div>
 
     <div>
-      <div class="flex items-center mx-auto lg:w-1/2 mt-2">
+      <div class="flex items-center mx-auto lg:w-1/2 mt-3">
         <Icon name="flag:ru-4x3"/>
         <p class="ml-1 text-gray-500">На русском</p>
       </div>
@@ -79,7 +82,7 @@ const links = [
 
 
     <div>
-      <div class="flex items-center mx-auto lg:w-1/2 mt-2">
+      <div class="flex items-center mx-auto lg:w-1/2 mt-3">
         <Icon name="bxs:chat" class="text-gray-500"/>
         <p class="ml-1 text-gray-500">Объяснения или пример</p>
       </div>

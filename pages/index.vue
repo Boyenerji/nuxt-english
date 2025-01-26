@@ -201,7 +201,7 @@ const links = [
         </div>
     </div>
 
-    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-28 left-0 w-full p-4 text-center">
+    <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-32 left-0 w-full p-4 text-center">
         <input 
             type="text" 
             v-model.trim="translate" 
@@ -212,7 +212,7 @@ const links = [
     </div>
 
 
-    <div v-if="englishs.length != 0 && !isRight" class="fixed bottom-4 left-0 w-full p-4 text-center">
+    <div v-if="englishs.length != 0 && !isRight" class="fixed bottom-12 left-0 w-full p-4 text-center">
         <div class="mt-5">
             <button @click="retryFetch" :disabled="isDisabled" type="button"
                 class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
