@@ -202,14 +202,6 @@ const links = [
     </div>
 
     <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-28 left-0 w-full p-4 text-center">
-        <!-- <textarea
-            :value="translate"
-            @input="event => translate = event.target.value"
-            ref="inputRef"
-            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2"
-            required>
-            {{ translate }}
-        </textarea> -->
         <input 
             type="text" 
             v-model.trim="translate" 
@@ -228,6 +220,9 @@ const links = [
             </button>
         </div>
     </div>
+
+
+    <Navigation />
 
 
 

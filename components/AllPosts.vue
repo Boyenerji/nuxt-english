@@ -55,7 +55,7 @@ onMounted(() => {
 
 <template>
 
-    <HorizontalMenu :links="links" />
+    <!-- <HorizontalMenu :links="links" /> -->
 
     <AllPostsCount />
 
@@ -75,7 +75,7 @@ onMounted(() => {
 
 
         <div v-if="posts.length != totalPosts"
-            class="mt-3 fixed bottom-4 left-1/2 transform -translate-x-1/2 text-center">
+            class="mt-3 fixed bottom-20 left-1/2 transform -translate-x-1/2 text-center">
             <button @click="fetchPosts" :disabled="isLoading || posts.length >= totalPosts"
                 class="text-white flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-bold rounded-lg px-5 py-2.5 text-center me-2 mb-2">
                 <SmallSpinner v-if="isLoading" class="mr-2" />
@@ -92,5 +92,7 @@ onMounted(() => {
             </button>
         </div>
     </div>
+
+    <Navigation />
 
 </template>
