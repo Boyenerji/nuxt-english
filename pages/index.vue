@@ -140,6 +140,8 @@ const links = [
     
     <!-- <HorizontalMenu :links="links" /> -->
 
+    <Icon name="unjs:unwasm" size="125" class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center">
 
         <div>
@@ -164,11 +166,12 @@ const links = [
                 </div>
 
                 <div v-else>
-                    <PostsDiff :diff="diff" class="mt-2" />
+                    <!-- <PostsDiff :diff="diff" class="mt-2" /> -->
 
-                    <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn mt-1 ">
+                    <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn m-2 p-2 rounded shadow-3xl dark:bg-gray-800">
+                        <PostsDiff :diff="diff" class="mt-2" />
                         <p class="text-gray-800 pl-1 pr-1 text-4xl font-semibold divide-y dark:text-gray-300"
-                            :class="{ 'text-xl': english.russian.length > 30 }">
+                            :class="{ 'text-xl': english.russian.length > 25 }">
                             {{ english.russian}}
                         </p>
                         <p class="pt-2 pr-2 pl-2 text-3xl cursor-pointer dark: text-gray-500">
@@ -179,7 +182,7 @@ const links = [
                         <div class="flex justify-center">
                             <span 
                                 @click="toggleText"
-                                class="inline-flex items-center mr-3 justify-center p-1 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
+                                class="inline-flex items-center mr-3 justify-center px-2 py-1 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
                                 {{ showText ? 'Скрыть' : 'Показать' }}
                                 <span class="sr-only">Icon description</span>
                             </span>

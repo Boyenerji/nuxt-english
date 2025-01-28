@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        '3xl': '5px 4px 6px 5px rgb(0 0 0 / 0.1)',
+        '3xl': '2px 2px 10px 2px rgb(0 0 0 / 0.1)',
       },
     },
   },
