@@ -10,8 +10,9 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 14400 
+    expires: 21600 
   },
 });
+
 
 export default mongoose.model('PostsTimer', PostSchema);
