@@ -27,7 +27,6 @@ const fetchPosts = async () => {
     });
 
 
-
     posts.value.push(...data.posts);
     totalPosts.value = data.total;
     skip += limit; 
@@ -54,7 +53,27 @@ onUpdated(() => {
   initFlowbite();
 });
 
+const formatDate = (dateString) => {
+  if (!dateString) return ''
+  const dateFromDB = new Date(dateString)
 
+
+  const formattedDate = dateFromDB.toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Moscow"
+  })
+
+  const formattedTime = dateFromDB.toLocaleTimeString("ru-RU", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Europe/Moscow"
+  })
+
+  return `${formattedDate} ${formattedTime}`
+}
 
 
 
@@ -70,6 +89,10 @@ onUpdated(() => {
 
   <div>
     <div v-for="post in posts" :key="post._id" class="animate__animated animate__fadeIn shadow-3xl p-2 rounded-md m-2">
+      <div v-if="post.createdDo" class=" text-sm text-yellow-800 rounded-lg dark:text-yellow-300"
+        role="alert">
+        <p>{{ formatDate(post.createdDo) }}</p>
+      </div>
       <p class="text-gray-800 text-2xl font-semibold divide-y dark:text-gray-300">{{ post.russian }}</p>
       <p class=" text-xl mt-1 dark: text-gray-500">
         {{ post.englishtext }}
@@ -84,6 +107,9 @@ onUpdated(() => {
 
         <i v-html="post.rulestext" class="p-1 text-lg mt-2 dark: text-gray-500"></i>
       </div>
+      <!-- <p class=" text-xl mt-1 dark: text-gray-500">
+        {{ formatDate(post.createdDo) }}
+      </p> -->
     </div>
 
 

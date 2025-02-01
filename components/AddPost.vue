@@ -55,7 +55,7 @@ const addUser = async () => {
 
             <div class="flex items-center text-center mx-auto lg:w-1/2">
               <Icon name="flag:us-4x3" />
-              <p class="ml-1 text-gray-500">На английском</p>
+              <p class="ml-1 text-gray-500 font-medium">На английском</p>
             </div>
 
             <!-- <div v-for="(item, index) in englishtextArray" :key="index">
@@ -72,7 +72,7 @@ const addUser = async () => {
           <div>
             <div class="flex items-center mx-auto lg:w-1/2 mt-3">
               <Icon name="flag:ru-4x3" />
-              <p class="ml-1 text-gray-500">На русском</p>
+              <p class="ml-1 text-gray-500 font-medium">На русском</p>
             </div>
             <input type="text" v-model="russian"
               class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -83,7 +83,7 @@ const addUser = async () => {
           <div>
             <div class="flex items-center mx-auto lg:w-1/2 mt-3">
               <Icon name="bxs:chat" class="text-gray-500" />
-              <p class="ml-1 text-gray-500">Объяснения или пример</p>
+              <p class="ml-1 text-gray-500 font-medium">Объяснения или пример</p>
             </div>
             <textarea v-model="rulestext" :class="[
             rulestext.length > 20 ? 'text-lg' : 'text-xl'

@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
   englishtext: { type: String, required: true, trim: true },
   rulestext: { type: String, required: false, trim: true },
   createdAt: { type: Date, default: Date.now },
+  createdDo: { type: Date },
 });
 
 export default mongoose.model('Post', UserSchema);

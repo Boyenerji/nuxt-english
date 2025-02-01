@@ -17,6 +17,7 @@
     "@nuxt/ui": "^2.20.0",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@vueuse/core": "^12.5.0",
     "animate.css": "^4.1.1",
     "flowbite": "^2.5.2",
     "mongoose": "^8.9.3",
