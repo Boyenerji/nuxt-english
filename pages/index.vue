@@ -32,13 +32,15 @@ const toggleText = () => {
 
 
 const target = ref()
-const { focused } = useFocus(target, { initialValue: true })
+// const { focused } = useFocus(target, { initialValue: true })
 
-watch(focused, (focused) => {
-  if (focused)
-    console.log('input element has been focused')
-  else console.log('input element has lost focus')
-})
+useFocus(target, { initialValue: true })
+
+// watch(focused, (focused) => {
+//   if (focused)
+//     console.log('input element has been focused')
+//   else console.log('input element has lost focus')
+// })
 
 
 
@@ -53,6 +55,9 @@ const isMatch2 = computed(() => {
             .toLowerCase()
             .replace(/’/g, "'") 
             .trim();
+
+        console.log('userInput:', userInput);
+        console.log('correctText:', correctText);
 
         return userInput === correctText;
     }
@@ -186,7 +191,8 @@ const links = [
                         <div class="flex justify-center">
                             <span 
                                 @click="toggleText"
-                                class="inline-flex items-center mr-3 justify-center px-2 py-1 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
+                                :class="{'mr-3': english.rulestext}"
+                                class="inline-flex items-center justify-center px-2 py-1 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-black dark:text-blue-400">
                                 {{ showText ? 'Скрыть' : 'Показать' }}
                                 <span class="sr-only">Icon description</span>
                             </span>
@@ -197,19 +203,6 @@ const links = [
                             </div>
 
                         </div>
-
-                        <!-- <span
-                            @click="toggleText"
-                            class="inline-flex items-center justify-center p-2 rounded-md mt-2 text-sm font-semibold cursor-pointer text-blue-800 bg-blue-100  dark:bg-gray-700 dark:text-blue-400">
-                            {{ showText ? 'Скрыть' : 'Показать' }}
-                            <span class="sr-only">Icon description</span>
-                        </span>
-
-
-                        <div v-if="english.rulestext" class="mt-2">
-                            <Popover :rules="english.rulestext" />
-                        </div> -->
-
 
                     </div>
                 </div>
@@ -223,14 +216,14 @@ const links = [
 
     <div v-if="englishs.length != 0 && !isDisabled && !isRight" class="fixed bottom-36 left-0 w-full p-4 text-center">
         <input type="text" v-model.trim="translate" ref="target" required
-            class=" bg-gray-50 border border-gray-300 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500  p-4 w-full dark:bg-gray-800 dark:border-gray-800 dark:placeholder-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 lg:w-1/2" />
+            class="bg-gray-100 border-0 text-gray-800 resize-none text-2xl font-medium rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-4 w-full md:w-1/2 dark:bg-gray-900 dark:placeholder-gray-600 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" />
     </div>
 
 
     <div v-if="englishs.length != 0 && !isRight" class="fixed bottom-16 left-0 w-full p-4 text-center">
         <div class="mt-5">
             <button @click="retryFetch" :disabled="isDisabled" type="button"
-                class="text-white bg-purple-500 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                class="text-white bg-emerald-500 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-600 font-semibold rounded-full  px-5 py-2.5 text-center mb-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-900">
                 {{ isDisabled ? 'Загрузка...' : 'Далее' }}
             </button>
         </div>

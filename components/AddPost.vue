@@ -5,6 +5,7 @@ const englishtext = ref('');
 const rulestext = ref('');
 const error = ref(null);
 const isLoading = ref(false);
+const isBanner = ref(false);
 
 const addUser = async () => {
 //   error.value = null;
@@ -22,6 +23,10 @@ const addUser = async () => {
     error.value = err;
   } finally {
     isLoading.value = false;
+    isBanner.value = true;
+    setTimeout(() => {
+      isBanner.value = false;
+  }, 2500);
   }
 };
 
@@ -39,6 +44,7 @@ const addUser = async () => {
 <template>
 
   <!-- <HorizontalMenu :links="links"/> -->
+  <Banner v-if="isBanner" />
 
   <div class="h-screen inset-0 flex items-center justify-center dark:bg-black">
 
@@ -58,11 +64,7 @@ const addUser = async () => {
               <p class="ml-1 text-gray-500 font-medium">На английском</p>
             </div>
 
-            <!-- <div v-for="(item, index) in englishtextArray" :key="index">
-              {{ index }}
-              <input v-model="englishtextArray[index]" placeholder="Введите вариант">
-            </div>
-            <button @click="addNewField">+ Добавить еще</button> -->
+
 
             <input type="text" v-model="englishtext"
               class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 lg:mx-auto dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -88,8 +90,7 @@ const addUser = async () => {
             <textarea v-model="rulestext" :class="[
             rulestext.length > 20 ? 'text-lg' : 'text-xl'
           ]"
-              class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      </textarea>
+              class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
           </div>
 
 

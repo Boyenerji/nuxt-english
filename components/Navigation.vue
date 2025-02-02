@@ -34,7 +34,7 @@
 
 
             <div class="inline-flex flex-col items-center justify-center cursor-pointer px-5 dark:hover:bg-emerald-600">
-                <Test />
+                <DarkMode />
             </div>
 
         </div>
