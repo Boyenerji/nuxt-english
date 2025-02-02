@@ -3,6 +3,8 @@
 
 import { initFlowbite } from 'flowbite';
 import AllPostsCount from './AllPostsCount.vue';
+import { DateTime } from 'luxon';
+import { Icon } from '#components';
 
 
 
@@ -33,10 +35,10 @@ const fetchPosts = async () => {
 
     await nextTick();
 
-    console.log('data:', data);
-    console.log('posts.value:', posts.value);
-    console.log('totalPosts.value:', totalPosts.value);
-    console.log('skip:', skip);
+    // console.log('data:', data);
+    // console.log('posts.value:', posts.value);
+    // console.log('totalPosts.value:', totalPosts.value);
+    // console.log('skip:', skip);
   } catch (error) {
     console.error('Ошибка при загрузке постов:', error);
   } finally {
@@ -55,26 +57,32 @@ onUpdated(() => {
 
 const formatDate = (dateString) => {
   if (!dateString) return ''
-  const dateFromDB = new Date(dateString)
+  const zone = 'Europe/Moscow';
+  const now = DateTime.local().setZone(zone);
+  const dateFromDB = DateTime.fromISO(dateString, { zone });
+  
+  if (now > dateFromDB) return ''
+
+  const diff = dateFromDB.diff(now, ['hours', 'minutes']).toObject();
+
+  const diffHours = Math.floor(diff.hours || 0);
+  const diffMinutes = Math.floor(diff.minutes || 0);
 
 
-  const formattedDate = dateFromDB.toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Europe/Moscow"
-  })
+  // const formattedDate = dateFromDB.setLocale('ru').toLocaleString({
+  //   day: 'numeric',
+  //   month: 'long',
+  //   year: 'numeric'
+  // });
 
-  const formattedTime = dateFromDB.toLocaleTimeString("ru-RU", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Moscow"
-  })
+  
+  // const formattedTime = dateFromDB.setLocale('ru').toLocaleString({
+  //   hour: '2-digit',
+  //   minute: '2-digit'
+  // });
 
-  return `${formattedDate} ${formattedTime}`
+  return `${diffHours}ч ${diffMinutes}м`
 }
-
 
 
 </script>
@@ -89,9 +97,9 @@ const formatDate = (dateString) => {
 
   <div>
     <div v-for="post in posts" :key="post._id" class="animate__animated animate__fadeIn shadow-3xl p-2 rounded-md m-2">
-      <div v-if="post.createdDo" class=" text-sm text-yellow-800 rounded-lg dark:text-yellow-300"
+      <div v-if="formatDate(post.createdDo)" class="flex items-center text-sm text-yellow-800 rounded-lg dark:text-yellow-300"
         role="alert">
-        <p>{{ formatDate(post.createdDo) }}</p>
+        <Icon name="tabler:clock" class="mr-1" /><p>{{ formatDate(post.createdDo) }}</p>
       </div>
       <p class="text-gray-800 text-2xl font-semibold divide-y dark:text-gray-300">{{ post.russian }}</p>
       <p class=" text-xl mt-1 dark: text-gray-500">
