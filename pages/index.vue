@@ -144,9 +144,9 @@ const links = [
     
     <!-- <HorizontalMenu :links="links" /> -->
 
-    <Icon name="unjs:unwasm" size="125" class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+    <Icon name="logos:nuxt-icon" size="125" class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center lg:w-1/2">
 
         <div>
             <div v-if="postsStatus === 'pending' || diffStatus === 'pending'" class="flex justify-center">
@@ -158,7 +158,7 @@ const links = [
                 <!-- <PostsDiff /> -->
 
                 <div v-if="isRight">
-                    <div class="bg-green-500 p-3 flex justify-center items-center animate__animated animate__fadeIn">
+                    <div class="bg-green-500 p-3 flex justify-center items-center animate__animated animate__fadeIn rounded-md">
                         <div class="text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                                 <path fill="#FFFFFF"
@@ -172,7 +172,7 @@ const links = [
                 <div v-else>
                     <!-- <PostsDiff :diff="diff" class="mt-2" /> -->
 
-                    <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn m-2 p-2 rounded shadow-3xl dark:bg-gray-800">
+                    <div v-for="english in englishs" :key="english._id" class="animate__animated animate__fadeIn m-2 p-2 rounded ">
                         <PostsDiff :diff="diff" class="mt-2" />
                         <p class="text-gray-800 pl-1 pr-1 text-3xl font-semibold divide-y dark:text-gray-300 lg:text-4xl"
                             :class="{ 'text-xl': english.russian.length > 25 }">

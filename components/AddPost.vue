@@ -96,7 +96,7 @@ const addUser = async () => {
 
           <div class="text-center mt-3">
             <button type="submit" :disabled="!englishtext || !russian || isLoading"
-              class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold rounded-full cursor-pointer  px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+              class="text-white emerald hover:bg-emerald-600 focus:outline-none focus:ring-4 font-semibold rounded-full cursor-pointer  px-5 py-2.5 text-center mb-2 dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-900">
               {{ isLoading ? 'Сохранение...' : 'Сохранить' }}
             </button>
           </div>
@@ -115,3 +115,9 @@ const addUser = async () => {
 
 </template>
   
+<style>
+
+.emerald {
+    background-color: #00DC82;
+}
+</style>
