@@ -124,7 +124,6 @@ const retryFetch = async () => {
 
 onUpdated(() => {
   initFlowbite();
-  useFocus(target, { initialValue: true });
 });
 
 
@@ -144,6 +143,8 @@ const links = [
 
 
 <template>
+
+
 
 
     

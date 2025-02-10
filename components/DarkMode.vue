@@ -3,7 +3,7 @@
         <Icon @click="toggleColorMode" class="cursor-pointer text-white" size="25" :name="colorMode.preference === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun'" />
         <span
             class="text-sm text-white font-bold mt-1">
-            {{ colorMode.preference === 'dark' ? 'Темный' : 'Светлый' }}
+            {{ colorMode.preference === 'dark' ? 'Dark' : 'Light' }}
         </span>
     </ClientOnly>
 </template>

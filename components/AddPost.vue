@@ -1,5 +1,90 @@
 <script setup>
 
+import { useTextSelection } from '@vueuse/core';
+
+
+const test = ref('djksahdksajdhas <strong>sdjksahd</strong>');
+
+const editableArea = ref(null);
+
+
+watchEffect(editableArea, () => {
+  console.log(editableArea.value);
+});
+
+const selection = useTextSelection({
+  target: editableArea,
+});
+
+// Обработка выделения текста
+const handleTextSelection = () => {
+  const selectedText = selection.text.value;
+  console.log('Selected text:', selectedText);
+  if (selectedText.trim() === '') return;
+
+  // Получение текущего выделения из документа
+  const documentSelection = document.getSelection();
+  if (!documentSelection.rangeCount) return;
+
+  try {
+    const range = documentSelection.getRangeAt(0);
+    console.log('Range:', range);
+    // Создание элемента <strong> и оборачивание выделения
+    const strongElement = document.createElement('strong');
+    range.surroundContents(strongElement);
+    
+    // Сброс выделения после изменения
+    documentSelection.removeAllRanges();
+  } catch (error) {
+    console.error('Ошибка при оборачивании текста:', error);
+  }
+};
+
+const clearBold = () => {
+  const area = editableArea.value;
+  if (!area) return;
+
+  console.log('area:', area);
+  console.log(editableArea.value)
+
+  const cleanText = area.value.replace(/<\/?strong>/gi, '');
+
+  editableArea.value = cleanText;
+
+  
+
+
+  // const area = editableArea.value;
+  // if (!area) return;
+
+  // const strongElements = Array.from(area.querySelectorAll('strong'));
+
+  // if (!strongElements.length) return;
+
+  // console.log('strongElements:', strongElements);
+
+  // strongElements.forEach(strongEl => {
+  //   const fragment = document.createDocumentFragment();
+  //   while (strongEl.firstChild) {
+  //     fragment.appendChild(strongEl.firstChild);
+  //   }
+
+  //   strongEl.parentNode.replaceChild(fragment, strongEl);
+  // });
+};
+
+
+const clearBold2 = () => {
+  const area = test.value;
+  if (!area) return;
+  const cleanText = area.replace(/<\/?strong>/gi, '');
+
+  test.value = cleanText;
+}
+
+
+
+
 const russian = ref('');
 const englishtext = ref('');
 const rulestext = ref('');
@@ -43,6 +128,8 @@ const addUser = async () => {
 
 <template>
 
+  <TextEditor />
+
   <!-- <HorizontalMenu :links="links"/> -->
   <Banner v-if="isBanner" />
 
@@ -81,8 +168,21 @@ const addUser = async () => {
               required />
           </div>
 
-
           <div>
+            <div ref="editableArea" contenteditable="true">
+            </div>
+            <button @click="handleTextSelection">Сделать жирным</button>
+            <button @click="clearBold">Убрать жирное</button>
+            <button @click="clearBold2">Убрать жирное2</button>
+          </div>
+
+
+          <div v-html="test">
+
+          </div>
+
+
+          <!-- <div>
             <div class="flex items-center mx-auto lg:w-1/2 mt-3">
               <Icon name="bxs:chat" class="text-gray-500" />
               <p class="ml-1 text-gray-500 font-medium">Объяснения или пример</p>
@@ -91,7 +191,7 @@ const addUser = async () => {
             rulestext.length > 20 ? 'text-lg' : 'text-xl'
           ]"
               class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-          </div>
+          </div> -->
 
 
 
@@ -111,6 +211,9 @@ const addUser = async () => {
     </div>
 
   </div>
+
+
+
 
   <Navigation />
 
