@@ -14,16 +14,29 @@ const isDisabled = ref(false)
 
 
 const showText = ref(false)
-const wordsOrStats = computed(() => {
-    if (!showText.value) {
-        let englishsText2 = ''
-        englishsText2 = englishs.value[0].englishtext.replace(/[a-zA-Z]/g, '*');
-        return englishsText2
-    } else {
-        return englishs.value[0].englishtext
-    }
+// const wordsOrStats = computed(() => {
+//     if (!showText.value) {
+//         let englishsText2 = ''
+//         englishsText2 = englishs.value[0].englishtext.replace(/[a-zA-Z]/g, '*');
+//         return englishsText2
+//     } else {
+//         return englishs.value[0].englishtext
+//     }
 
-})
+// })
+
+const wordsOrStats = computed(() => {
+  const texts = englishs.value[0].englishtext;
+  console.log('texts = ', texts);
+  if (!showText.value) {
+    // Применяем .replace ко всем элементам массива и объединяем их через пробел
+    return texts.map(text => text.replace(/[a-zA-Z]/g, '*')).join(' | ');
+  } else {
+    // Объединяем оригинальные строки
+    return texts.join(' ');
+  }
+});
+
 
 
 const toggleText = () => {
@@ -44,24 +57,56 @@ useFocus(target, { initialValue: true })
 
 
 
+// const isMatch2 = computed(() => {
+//     if (englishs.value && englishs.value.length > 0) {
+//         const userInput = translate.value
+//             .toLowerCase()
+//             .replace(/’/g, "'") // Заменяем типографские кавычки
+//             .trim();
+
+//         console.log('englishs.value = ' + JSON.stringify(englishs.value[0]))
+
+//         console.log('englishs.value[0] = ' + englishs.value[0]);
+
+//         const correctText = englishs.value[0].englishtext
+//             .toLowerCase()
+//             .replace(/’/g, "'") 
+//             .trim();
+
+//         console.log('userInput:', userInput);
+//         console.log('correctText:', correctText);
+
+//         return userInput === correctText;
+//     }
+//     return false;
+// });
+
+
 const isMatch2 = computed(() => {
-    if (englishs.value && englishs.value.length > 0) {
-        const userInput = translate.value
-            .toLowerCase()
-            .replace(/’/g, "'") // Заменяем типографские кавычки
-            .trim();
+    console.log('englishs.value[0] = ', englishs.value[0]);
+    console.log('englishs.value.englishtext = ', englishs.value[0].englishtext);
+    console.log(Array.isArray(englishs.value[0].englishtext))
+  // Проверяем, что пришёл объект и в нём есть поле englishtext, которое является массивом
+  if (
+    englishs.value &&
+    englishs.value[0].englishtext &&
+    Array.isArray(englishs.value[0].englishtext)
+  ) {
+    // Приводим пользовательский ввод к нижнему регистру, заменяем типографские кавычки и удаляем лишние пробелы
+    const userInput = translate.value
+      .toLowerCase()
+      .replace(/’/g, "'")
+      .trim();
 
-        const correctText = englishs.value[0].englishtext
-            .toLowerCase()
-            .replace(/’/g, "'") 
-            .trim();
-
-        console.log('userInput:', userInput);
-        console.log('correctText:', correctText);
-
-        return userInput === correctText;
-    }
-    return false;
+    
+    return englishs.value[0].englishtext.some(text => {
+      return (
+        typeof text === "string" &&
+        text.toLowerCase().replace(/’/g, "'").trim() === userInput
+      );
+    });
+  }
+  return false;
 });
 
 const saveDocument = async () => {
@@ -98,7 +143,7 @@ watch(isMatch2, async (newVal, oldVal) => {
             setTimeout(async () => {
                 isRight.value = false;
                 await retryFetch()
-            }, 1500);
+            }, 1000);
         } catch (error) {
             console.error('Error in watcher callback:', error);
         }
@@ -108,10 +153,12 @@ watch(isMatch2, async (newVal, oldVal) => {
 
 const retryFetch = async () => {
   try {
+    if (translate.value !== '') translate.value = ''
     isDisabled.value = true
     await executePosts(); 
     await executeDiff();
     await nextTick();
+    useFocus(target, { initialValue: true })
     showText.value = false
     console.log('Запрос выполнен повторно');
   } catch (err) {
