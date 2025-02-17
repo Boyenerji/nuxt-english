@@ -30,10 +30,10 @@ const wordsOrStats = computed(() => {
   console.log('texts = ', texts);
   if (!showText.value) {
     // Применяем .replace ко всем элементам массива и объединяем их через пробел
-    return texts.map(text => text.replace(/[a-zA-Z]/g, '*')).join(' | ');
+    return texts.map(text => text.replace(/[a-zA-Z]/g, '*')).join(' <br> ');
   } else {
     // Объединяем оригинальные строки
-    return texts.join(' ');
+    return texts.join(' <br> ');
   }
 });
 
@@ -143,7 +143,7 @@ watch(isMatch2, async (newVal, oldVal) => {
             setTimeout(async () => {
                 isRight.value = false;
                 await retryFetch()
-            }, 1000);
+            }, 500);
         } catch (error) {
             console.error('Error in watcher callback:', error);
         }
@@ -231,8 +231,7 @@ const links = [
                             :class="{ 'text-xl': english.russian.length > 25 }">
                             {{ english.russian}}
                         </p>
-                        <p class="pt-2 pr-2 pl-2 text-2xl cursor-pointer dark: text-gray-500">
-                            {{ wordsOrStats }}
+                        <p v-html="wordsOrStats" class="pt-2 pr-2 pl-2 text-2xl cursor-pointer dark: text-gray-500">
                         </p>
 
 

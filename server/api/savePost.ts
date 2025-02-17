@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
 
     const currentDate = new Date();
     console.log("Ot" + currentDate);
-    currentDate.setHours(currentDate.getHours() + 8);
+    currentDate.setHours(currentDate.getHours() + 12);
     console.log('Posle' + currentDate);
 
     const addCreateAtDo = await Posts.findOneAndUpdate(

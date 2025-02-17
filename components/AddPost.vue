@@ -82,10 +82,6 @@ console.log('englishtext.value:', englishtext.value);
 
 
 
-
-
-
-
           <!-- <input type="text" v-model="englishtext"
               class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 lg:mx-auto dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required 
@@ -100,14 +96,16 @@ console.log('englishtext.value:', englishtext.value);
               <Icon name="flag:us-4x3" />
               <p class="ml-1 text-gray-500 font-medium">На английском</p>
             </div>
-            <div v-for="(text, index) in englishtext" :key="index" class="flex items-center mb-2">
-              <input type="text" v-model="englishtext[index]"
-                class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-              <button v-if="index > 0" @click="removeInput(index)" class="ml-2 text-red-500 hover:text-red-700">
-                Удалить
-              </button>
+            <div v-for="(text, index) in englishtext" :key="index" class="flex-col items-center mb-2 lg:justify-center">
+
+                <input type="text" v-model="englishtext[index]"
+                  class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 text-2xl font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" /><br>
+                <button v-if="index > 0" @click="removeInput(index)" class="text-red-500 hover:text-red-700">
+                  Удалить
+                </button>
+
             </div>
-            <button @click="addInput" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            <button v-if="englishtext.length < 2" @click="addInput" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
               Добавить поле
             </button>
           </div>
@@ -128,10 +126,13 @@ console.log('englishtext.value:', englishtext.value);
               <Icon name="bxs:chat" class="text-gray-500" />
               <p class="ml-1 text-gray-500 font-medium">Объяснения или пример</p>
             </div>
-            <textarea v-model="rulestext" :class="[
-            rulestext.length > 20 ? 'text-lg' : 'text-xl'
-          ]"
-              class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 font-medium rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+            <textarea 
+              v-model="rulestext"
+              rows="4"
+              :class="[
+                rulestext.length > 20 ? 'text-base' : 'text-xl'
+              ]"
+              class="placeholder-gray-500 placeholder-opacity-10 bg-gray-50 mt-1 border border-gray-300 text-gray-500 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-3 w-full resize-none lg:w-1/2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
           </div>
 
 
