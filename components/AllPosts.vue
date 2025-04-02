@@ -96,7 +96,7 @@ const formatDate = (dateString) => {
   <AllPostsCount />
 
   <div>
-    <div v-for="post in posts" :key="post._id" class="animate__animated animate__fadeIn shadow-3xl p-2 rounded-md m-2">
+    <div v-for="post in posts" :key="post._id" class="animate__animated animate__fadeIn shadow-3xl p-2 m-2 rounded-md shadow-lg bg-slate-950">
       <div v-if="formatDate(post.createdDo)" class="flex items-center text-sm text-yellow-800 rounded-lg dark:text-yellow-300"
         role="alert">
         <Icon name="tabler:clock" class="mr-1" /><p>{{ formatDate(post.createdDo) }}</p>
